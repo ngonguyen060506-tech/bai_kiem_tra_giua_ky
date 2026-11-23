@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đèn Kéo Quân 3D - Javascript</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="student-info">
+            <h1>ĐÈN KÉO QUÂN 6 MẶT - JAVASCRIPT</h1>
+            <p>Sinh viên: <strong>Ngô Nguyễn Thị Nguyên Nguyên</strong> | Mã SV: <strong>241A010319</strong></p>
+        </div>
+    </header>
+
+    <nav>
+        <a href="index.html">Trang chủ</a>
+        <a href="den-keo-quan.html" class="active">Đèn Kéo Quân
+            
+        </a>
+        <a href="bai17.html">Bài 17</a>
+        <a href="bai18.html">Bài 18</a>
+        <a href="bai19.html">Bài 19</a>
+        <a href="bai20.html">Bài 20</a>
+        <a href="bai21.html">Bài 21</a>
+        <a href="bai22.html">Bài 22</a>
+    </nav>
+
+    <main>
+        <h2>MÔ HÌNH ĐÈN KÉO QUÂN 6 HÌNH ẢNH</h2>
+        <p style="margin-top: 8px; color: #a8dadc;">Di chuột vào bất kỳ hình ảnh nào để dừng đèn. Rê chuột ra ngoài để đèn tiếp tục quay.</p>
+
+        <!-- Khung chứa đèn kéo quân -->
+        <div class="lantern-wrapper">
+            <div class="lantern-carousel" id="lantern">
+                <!-- Thay src bằng đường dẫn ảnh chụp của bạn: images/anh1.jpg ... -->
+                <div class="lantern-face face-1">
+                    <img src="images/anh1.jpg" alt="Ảnh 1">
+                    <span>Ảnh 1 - Kỷ niệm 1</span>
+                </div>
+                <div class="lantern-face face-2">
+                    <img src="images/anh2.jpg" alt="Ảnh 2">
+                    <span>Ảnh 2 - Kỷ niệm 2</span>
+                </div>
+                <div class="lantern-face face-3">
+                    <img src="images/anh3.jpg" alt="Ảnh 3">
+                    <span>Ảnh 3 - Kỷ niệm 3</span>
+                </div>
+                <div class="lantern-face face-4">
+                    <img src="images/anh4.jpg" alt="Ảnh 4">
+                    <span>Ảnh 4 - Kỷ niệm 4</span>
+                </div>
+                <div class="lantern-face face-5">
+                    <img src="images/anh5.jpg" alt="Ảnh 5">
+                    <span>Ảnh 5 - Kỷ niệm 5</span>
+                </div>
+                <div class="lantern-face face-6">
+                    <img src="images/anh6.jpg" alt="Ảnh 6">
+                    <span>Ảnh 6 - Kỷ niệm 6</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="status-badge" id="statusText">Trạng thái: Đang quay...</div>
+    </main>
+
+    <footer>
+        &copy; 2026 - Bài tập 24 Thiết kế Web | Hiệu ứng Javascript
+    </footer>
+
+    <!-- Script điều khiển Đèn kéo quân -->
+    <script>
+        const lantern = document.getElementById('lantern');
+        const faces = document.querySelectorAll('.lantern-face');
+        const statusText = document.getElementById('statusText');
+
+        let currentAngle = 0;      // Góc xoay hiện tại (độ)
+        let isPaused = false;      // Trạng thái tạm dừng
+        const rotationSpeed = 0.4; // Tốc độ xoay (độ / khung hình)
+
+        // Hàm vòng lặp tạo chuyển động xoay tròn bằng Javascript
+        function animateLantern() {
+            if (!isPaused) {
+                currentAngle = (currentAngle + rotationSpeed) % 360;
+                lantern.style.transform = `rotateY(${currentAngle}deg)`;
+            }
+            requestAnimationFrame(animateLantern);
+        }
+
+        // Gắn sự kiện rê chuột vào / ra cho từng mặt hình ảnh của đèn
+        faces.forEach((face, index) => {
+            face.addEventListener('mouseenter', () => {
+                isPaused = true;
+                statusText.textContent = `Trạng thái: Đã dừng (Đang xem Ảnh số ${index + 1})`;
+                statusText.style.color = '#e94560';
+            });
+
+            face.addEventListener('mouseleave', () => {
+                isPaused = false;
+                statusText.textContent = 'Trạng thái: Đang quay...';
+                statusText.style.color = '#ffd166';
+            });
+        });
+
+        // Bắt đầu chạy hiệu ứng
+        animateLantern();
+    </script>
+
+</body>
+</html>
